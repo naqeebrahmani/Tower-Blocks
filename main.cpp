@@ -41,15 +41,16 @@ struct Game{
 
 Game game;
 
-int main(){
-    InitWindow(WIDTH, HEIGHT, "Tower-Blocks");
-    SetTargetFPS(60);
-
-    Camera3D camera = Camera3D{{10, 10, 10}, 
+Camera3D camera = Camera3D{{10, 10, 10}, 
                                 {0, 0, 0}, 
                                 {0, 1, 0},
                                 45.0f,
                                 CAMERA_ORTHOGRAPHIC};
+
+int main(){
+    InitWindow(WIDTH, HEIGHT, "Tower-Blocks");
+    SetTargetFPS(60);
+
 
     
 
