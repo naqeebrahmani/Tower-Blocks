@@ -8,26 +8,27 @@ const Color BGCOLOUR = {0xB5, 0x99, 0x75, 0xFF};
 
 struct Block {
     Vector3 position;
-    Vector3 size;
+    Vector3 size = {10, 2, 10};
     Color colour;
 
-    Block(Vector3 position, Vector3 size, Color colour){
+    Block(Vector3 position, Color colour){
         this->position = position;
-        this->size = size;
         this->colour = colour;
     }
 
     void Draw(){
         DrawCube(position, size.x, size.y, size.z, colour);
-        DrawCubeWires(position, size.x, size.y, size.z, BLACK);
+        DrawCubeWires(position, size.x+0.05, size.y+0.05, size.z+0.05, BLACK);
     }
 
 };
 
-const Block defaultblock({0, 0, 0}, {10, 2, 10}, {155, 155, 155, 255});
+const Block defaultblock({0, 0, 0}, {155, 155, 155, 255});
+
+Block testblock({0, 2, 0}, {155, 155, 155, 255});
 
 struct Game{
-    std::vector<Block> blocks = {defaultblock};
+    std::vector<Block> blocks = {defaultblock, testblock};
     
 
     void DrawBlocks(){
