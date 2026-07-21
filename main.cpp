@@ -1,5 +1,4 @@
 #include <raylib.h>
-#include <vector>
 
 const int WIDTH = 600;
 const int HEIGHT = 1000;
@@ -15,6 +14,9 @@ struct Block {
         this->position = position;
         this->colour = colour;
     }
+    Block(){
+        return;
+    }
 
     void Draw(){
         DrawCube(position, size.x, size.y, size.z, colour);
@@ -28,12 +30,48 @@ const Block defaultblock({0, 0, 0}, {155, 155, 155, 255});
 Block testblock({0, 2, 0}, {155, 155, 155, 255});
 
 struct Game{
-    std::vector<Block> blocks = {defaultblock, testblock};
+    int totalplacedblocks = 1;
+    int totalplacedblocksinarray = 1;
+    Block *placedblocks;
+    Block *tempplacedblocks;
+
+    void InitPlacedBlocksArray(){
+        placedblocks = new Block[1];
+        placedblocks[0] = defaultblock;
+    }
+
+    void UpdatePlacedBlocks(){
+        if(totalplacedblocks > totalplacedblocksinarray){
+            tempplacedblocks = new Block[totalplacedblocks];
+            //temporary will be changed later on//
+            Block newblock = Block({0, (2*((float)totalplacedblocks-1)), 0}, {155, 155, 155, 255});
+
+            tempplacedblocks[(totalplacedblocks - 1)] = newblock;
+
+            for(int i = 0; i < (totalplacedblocks -1); i++){
+                tempplacedblocks[i] = placedblocks[i];
+            }
+            delete[] placedblocks;
+
+            placedblocks = new Block[totalplacedblocks];
+
+            for(int i = 0; i < totalplacedblocks; i++){
+                placedblocks[i] = tempplacedblocks[i];
+            }
+
+            delete[] tempplacedblocks;
+
+            totalplacedblocksinarray = totalplacedblocks;
+
+        }
+
+    }
+
     
 
     void DrawBlocks(){
-        for(Block block : blocks){
-            block.Draw();
+        for(int i = 0; i < (totalplacedblocks); i++){
+            (placedblocks[i]).Draw();
         }
     }
 
