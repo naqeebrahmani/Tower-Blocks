@@ -55,7 +55,7 @@ struct Game{
 
             placedblocks = new Block[totalplacedblocks];
 
-            for(int i = 0; i < totalplacedblocks; i++){
+            for(int i = 0; i < (totalplacedblocks - 1); i++){
                 placedblocks[i] = tempplacedblocks[i];
             }
 
@@ -89,6 +89,7 @@ int main(){
     InitWindow(WIDTH, HEIGHT, "Tower-Blocks");
     SetTargetFPS(60);
 
+    game.InitPlacedBlocksArray();
 
     
 
