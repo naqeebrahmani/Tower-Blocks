@@ -35,6 +35,13 @@ struct Game{
     Block *placedblocks;
     Block *tempplacedblocks;
 
+
+    Camera3D camera = Camera3D{{10, 10, 10}, 
+                                {0, 0, 0}, 
+                                {0, 1, 0},
+                                45.0f,
+                                CAMERA_ORTHOGRAPHIC};
+
     void InitPlacedBlocksArray(){
         placedblocks = new Block[1];
         placedblocks[0] = defaultblock;
@@ -44,18 +51,18 @@ struct Game{
         if(totalplacedblocks > totalplacedblocksinarray){
             tempplacedblocks = new Block[totalplacedblocks];
             //temporary will be changed later on//
-            Block newblock = Block({0, (2*((float)totalplacedblocks-1)), 0}, {155, 155, 155, 255});
+            Block newblock = Block({0, (2*totalplacedblocksinarray), 0}, {155, 155, 155, 255});
 
             tempplacedblocks[(totalplacedblocks - 1)] = newblock;
 
-            for(int i = 0; i < (totalplacedblocks -1); i++){
+            for(int i = 0; i < (totalplacedblocks - 1); i++){
                 tempplacedblocks[i] = placedblocks[i];
             }
             delete[] placedblocks;
 
             placedblocks = new Block[totalplacedblocks];
 
-            for(int i = 0; i < (totalplacedblocks - 1); i++){
+            for(int i = 0; i < (totalplacedblocks); i++){
                 placedblocks[i] = tempplacedblocks[i];
             }
 
@@ -67,7 +74,13 @@ struct Game{
 
     }
 
-    
+    void UpdateCamera(){
+
+        camera.position = {10, (float)totalplacedblocksinarray*2 + 10, 10};
+        camera.target = {0, (float)totalplacedblocksinarray*2, 0};
+
+    }
+
 
     void DrawBlocks(){
         for(int i = 0; i < (totalplacedblocks); i++){
@@ -75,15 +88,16 @@ struct Game{
         }
     }
 
+    void AddBlock(){
+        if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            totalplacedblocks ++;
+        }
+    }
+
 };
 
 Game game;
 
-Camera3D camera = Camera3D{{10, 10, 10}, 
-                                {0, 0, 0}, 
-                                {0, 1, 0},
-                                45.0f,
-                                CAMERA_ORTHOGRAPHIC};
 
 int main(){
     InitWindow(WIDTH, HEIGHT, "Tower-Blocks");
@@ -95,11 +109,17 @@ int main(){
 
     while(!WindowShouldClose()){
 
+        game.AddBlock();
+
+
+        game.UpdatePlacedBlocks();
+
+        game.UpdateCamera();
 
         BeginDrawing();
         ClearBackground(BGCOLOUR);
 
-        BeginMode3D(camera);
+        BeginMode3D(game.camera);
 
         game.DrawBlocks();
 
