@@ -16,12 +16,16 @@ class Game{
 
     int placedblocksint = 1;
 
+    bool addblock = false;
+
 
     public:
 
     Game();
 
     void DrawPlacedBlocks();
+
+    void AddBlock();
 
     
 
