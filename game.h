@@ -14,6 +14,8 @@ class Game{
 
     Block *placedblocks;
 
+    int placedblocksint = 1;
+
 
     public:
 
