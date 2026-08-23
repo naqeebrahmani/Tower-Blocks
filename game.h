@@ -3,6 +3,7 @@
 #include <raylib.h>
 
 #include "block.h"
+#include "movingblock.h"
 
 
 class Game{
@@ -18,12 +19,16 @@ class Game{
 
     bool addblock = false;
 
+    MovingBlock movingblock{{0, 2, 0}, 10, 10, {0, 0, 0, 255}};
+
 
     public:
 
     Game();
 
     void DrawPlacedBlocks();
+
+    void DrawMovingBlock(float dt);
 
     void AddBlock();
 

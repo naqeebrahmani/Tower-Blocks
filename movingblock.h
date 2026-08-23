@@ -1,14 +1,16 @@
+#pragma once
 #include <raylib.h>
 
 enum Axis{
     X,
-    Y
+    Z
 };
 
 enum Direction{
-    LEFT,
-    RIGHT
+    POSITIVE,
+    NEGATIVE
 };
+
 
 
 class MovingBlock{
@@ -18,14 +20,20 @@ class MovingBlock{
         float height = 2.0;
         float length;
 
-        int direction = GetRandomValue(LEFT, RIGHT);
-        int axis = GetRandomValue(X, Y);
+        int direction = GetRandomValue(POSITIVE, NEGATIVE);
+        int axis = GetRandomValue(X, Z);
 
-        float xcord;
-        float zcord;
+        float speedpersecond = 120;
 
         Color colour;
 
+    public:
+
+        MovingBlock(Vector3 position, float width, float length, Color colour);
+
+        void DrawAndMove(float dt);
+
+        Vector3 ReturnPosition();
 
 
 

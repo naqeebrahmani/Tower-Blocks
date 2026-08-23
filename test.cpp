@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include "game.h"
 #include "block.h"
+#include "movingblock.h"
 
 #include <iostream>
 
@@ -16,12 +17,15 @@ int main(){
 
     while(!WindowShouldClose()){
 
+        float deltatime = GetFrameTime();
+
         BeginDrawing();
         BeginMode3D(game.camera);
 
         ClearBackground(WHITE);
 
         game.DrawPlacedBlocks();
+        game.DrawMovingBlock(deltatime);
 
 
         EndMode3D();
