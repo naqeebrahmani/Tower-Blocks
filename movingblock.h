@@ -23,13 +23,13 @@ class MovingBlock{
         int direction = GetRandomValue(POSITIVE, NEGATIVE);
         int axis = GetRandomValue(X, Z);
 
-        float speedpersecond = 120;
+        float speedpersecond;
 
         Color colour;
 
     public:
 
-        MovingBlock(Vector3 position, float width, float length, Color colour);
+        MovingBlock(Vector3 position, float width, float length, float speed, Color colour);
 
         void DrawAndMove(float dt);
 

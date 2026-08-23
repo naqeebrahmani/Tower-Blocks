@@ -19,7 +19,7 @@ class Game{
 
     bool addblock = false;
 
-    MovingBlock movingblock{{0, 2, 0}, 10, 10, {0, 0, 0, 255}};
+    MovingBlock movingblock{{0, 2, 0}, 10, 10, 10, {67, 67, 0, 255}};
 
 
     public:
