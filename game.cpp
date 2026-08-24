@@ -26,3 +26,29 @@ void Game::DrawPlacedBlocks(){
 void Game::DrawMovingBlock(float dt){
     movingblock.DrawAndMove(dt);
 }
+
+void Game::AddBlock(){
+    if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        this->tempplacedblocks = new Block[this->placedblocksint];
+
+        for(int i = 0; i < (placedblocksint -1); i++){
+            tempplacedblocks[i] = placedblocks[i];
+        }
+
+        delete[] placedblocks;
+        
+        placedblocksint ++;
+
+        placedblocks = new Block[this->placedblocksint];
+
+        for(int i = 0; i < (placedblocksint - 2); i++){
+            placedblocks[i] = tempplacedblocks[i];
+        }
+
+        //continue here... 
+
+
+
+
+    }
+}

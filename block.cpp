@@ -16,3 +16,16 @@ void Block::DrawBlock(){
     DrawCube(this->position, this->width, this->height, this->length, {this->colour});
     DrawCubeWires(this->position, this->width, this->height, this->length, BLACK);
 }
+
+
+float Block::ReturnWidth(){
+    return this->width;
+}
+
+float Block::ReturnHeight(){
+    return this->height; //should always be 2
+}
+
+float Block::ReturnLength(){
+    return this->length;
+}

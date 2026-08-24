@@ -15,6 +15,8 @@ class Game{
 
     Block *placedblocks;
 
+    Block *tempplacedblocks;
+
     int placedblocksint = 1;
 
     bool addblock = false;
