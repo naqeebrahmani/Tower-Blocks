@@ -32,6 +32,14 @@ int main(){
         EndDrawing();
 
 
+        //key detection stuff is below
+
+
+        game.AddBlock();
+
+        //////////////////////////////
+
+
 
     }
 

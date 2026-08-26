@@ -58,6 +58,8 @@ void MovingBlock::DrawAndMove(float dt){
 
     DrawCube(this->position, this->width, this->height, this->length, this->colour);
     DrawCubeWires(this->position, this->width, this->height, this->length, BLACK);
+
+    
     
 }
 
