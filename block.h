@@ -25,9 +25,11 @@ class Block{
 
         float ReturnWidth();
 
-        float ReturnHeight(); //will always return 2 but i think i should have it when i have one for width and one for length
+        float ReturnHeight(); //will always return 2 but i think i should have it because i have one for width and one for length
 
         float ReturnLength();
+
+        Color ReturnColour();
 
 
 

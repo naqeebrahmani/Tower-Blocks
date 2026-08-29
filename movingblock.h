@@ -35,6 +35,7 @@ class MovingBlock{
 
         Vector3 ReturnPosition();
 
+        Color ReturnColour();
 
 
 };

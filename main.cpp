@@ -1,141 +1,53 @@
 #include <raylib.h>
+#include "game.h"
+#include "block.h"
+#include "movingblock.h"
 
-const int WIDTH = 600;
-const int HEIGHT = 1000;
-
-const Color BGCOLOUR = {0xB5, 0x99, 0x75, 0xFF};
-
-struct Block {
-    Vector3 position;
-    Vector3 size = {10, 2, 10};
-    Color colour;
-
-    Block(Vector3 position, Color colour){
-        this->position = position;
-        this->colour = colour;
-    }
-    Block(){
-        return;
-    }
-
-    void Draw(){
-        DrawCube(position, size.x, size.y, size.z, colour);
-        DrawCubeWires(position, size.x+0.05, size.y+0.05, size.z+0.05, BLACK);
-    }
-
-};
-
-const Block defaultblock({0, 0, 0}, {155, 155, 155, 255});
-
-Block testblock({0, 2, 0}, {155, 155, 155, 255});
-
-struct Game{
-    int totalplacedblocks = 1;
-    int totalplacedblocksinarray = 1;
-    Block *placedblocks;
-    Block *tempplacedblocks;
+#include <iostream>
 
 
-    Camera3D camera = Camera3D{{10, 10, 10}, 
-                                {0, 0, 0}, 
-                                {0, 1, 0},
-                                45.0f,
-                                CAMERA_ORTHOGRAPHIC};
-
-    void InitPlacedBlocksArray(){
-        placedblocks = new Block[1];
-        placedblocks[0] = defaultblock;
-    }
-
-    void UpdatePlacedBlocks(){
-        if(totalplacedblocks > totalplacedblocksinarray){
-            tempplacedblocks = new Block[totalplacedblocks];
-            //temporary will be changed later on//
-            Block newblock = Block({0, (2*totalplacedblocksinarray), 0}, {155, 155, 155, 255});
-
-            tempplacedblocks[(totalplacedblocks - 1)] = newblock;
-
-            for(int i = 0; i < (totalplacedblocks - 1); i++){
-                tempplacedblocks[i] = placedblocks[i];
-            }
-            delete[] placedblocks;
-
-            placedblocks = new Block[totalplacedblocks];
-
-            for(int i = 0; i < (totalplacedblocks); i++){
-                placedblocks[i] = tempplacedblocks[i];
-            }
-
-            delete[] tempplacedblocks;
-
-            totalplacedblocksinarray = totalplacedblocks;
-
-        }
-
-    }
-
-    void UpdateCamera(){
-
-        camera.position = {10, (float)totalplacedblocksinarray*2 + 10, 10};
-        camera.target = {0, (float)totalplacedblocksinarray*2, 0};
-
-    }
 
 
-    void DrawBlocks(){
-        for(int i = 0; i < (totalplacedblocks); i++){
-            (placedblocks[i]).Draw();
-        }
-    }
-
-    void AddBlock(){
-        if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            totalplacedblocks ++;
-        }
-    }
-
-};
-
-Game game;
+const int WIDTH = 600; const int HEIGHT = 1000;
 
 
 int main(){
-    InitWindow(WIDTH, HEIGHT, "Tower-Blocks");
-    SetTargetFPS(60);
-
-    game.InitPlacedBlocksArray();
-
-    
+    InitWindow(WIDTH, HEIGHT, "game");
+    Game game;
 
     while(!WindowShouldClose()){
 
-        game.AddBlock();
+        float deltatime = GetFrameTime();
 
+        //adjusting camera//
 
-        game.UpdatePlacedBlocks();
+        game.AdjustCamera(10.0, deltatime);
 
-        game.UpdateCamera();
+        ///////////////////
 
         BeginDrawing();
-        ClearBackground(BGCOLOUR);
-
         BeginMode3D(game.camera);
 
-        game.DrawBlocks();
+        ClearBackground(WHITE);
+
+        game.DrawPlacedBlocks();
+        game.DrawMovingBlock(deltatime);
 
 
         EndMode3D();
-
-
         EndDrawing();
+
+
+        //key detection stuff is below
+
+
+        game.AddBlock();
+
+        //////////////////////////////
+
 
     }
 
 
 
-
-
-    
-    CloseWindow();
-    return 0;
 }

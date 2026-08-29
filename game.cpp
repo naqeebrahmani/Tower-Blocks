@@ -31,7 +31,7 @@ void Game::AddBlock(){
     if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
         this->tempplacedblocks = new Block[this->placedblocksint];
 
-        for(int i = 0; i < (placedblocksint - 1); i++){
+        for(int i = 0; i < (placedblocksint); i++){
             tempplacedblocks[i] = placedblocks[i];
         }
 
@@ -41,29 +41,34 @@ void Game::AddBlock(){
 
         placedblocks = new Block[this->placedblocksint];
 
-        for(int i = 0; i < (placedblocksint - 2); i++){
+        for(int i = 0; i < (placedblocksint - 1); i++){
             placedblocks[i] = tempplacedblocks[i];
         }
-
+        
         delete[] tempplacedblocks;
  
         Block newblock{movingblock.ReturnPosition(),
                 placedblocks[placedblocksint-2].ReturnWidth(),
                 placedblocks[placedblocksint-2].ReturnLength(),
-                BLACK};
-
+                {movingblock.ReturnColour()}};
+        
         placedblocks[placedblocksint - 1] = newblock;
 
         this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
              placedblocks[placedblocksint-1].ReturnWidth(),
              placedblocks[placedblocksint-1].ReturnLength(),
-             10, BLACK};
-        
-    
-    
-        this->camera.position.y += 2;
-        this->camera.target.y += 2;
+             10, placedblocks[placedblocksint-1].ReturnColour()};
 
     }
 }
 
+
+void Game::AdjustCamera(float speedpersecond, float deltatime){
+    if(this->camera.position.y < ((this->placedblocksint-1)*2) + 10){
+        this->camera.position.y += speedpersecond*deltatime;
+    }
+    if(this->camera.target.y < ((this->placedblocksint-1)*2)){
+        this->camera.target.y += speedpersecond*deltatime;
+    }
+
+}

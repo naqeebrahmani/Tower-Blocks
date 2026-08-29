@@ -1,2 +1,2 @@
-g++ main.cpp -o main -lraylib
+g++ Main.cpp -o Main -lraylib
 ./main

@@ -33,3 +33,7 @@
     float Block::ReturnLength(){
         return this->length;
     }
+
+    Color Block::ReturnColour(){
+        return this->colour;
+    }

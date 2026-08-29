@@ -68,3 +68,7 @@ void MovingBlock::DrawAndMove(float dt){
 Vector3 MovingBlock::ReturnPosition(){
         return this->position;
     }
+
+Color MovingBlock::ReturnColour(){
+    return this->colour;
+}
