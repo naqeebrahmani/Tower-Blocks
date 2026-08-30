@@ -28,60 +28,55 @@ void Game::DrawMovingBlock(float dt){
 }
 
 void Game::AddBlock(){
-    //this should only run when the moving block is on top of the last placed block and not when there is nothing under movingblock
+    //checking overlap
 
-    bool rundetectioncode = false;
+    bool runaddblockcode = false;
 
     switch(movingblock.ReturnAxis()){
         case X:
             switch(movingblock.ReturnDirection()){
 
                 case POSITIVE:
-                    if(movingblock.ReturnPosition().x > (placedblocks[placedblocksint-1].ReturnPosition().x + placedblocks[placedblocksint-1].ReturnWidth()/2)){
-                        return;
+                    if(!(movingblock.ReturnPosition().x > (placedblocks[placedblocksint-1].ReturnPosition().x + placedblocks[placedblocksint-1].ReturnWidth()/2))){
+                        runaddblockcode = true;
                     }
-                    else{
-                        rundetectioncode = true;
-                    }
+
                     break;
 
                 case NEGATIVE:
-                    if(movingblock.ReturnPosition().x < (placedblocks[placedblocksint-1].ReturnPosition().x - placedblocks[placedblocksint-1].ReturnWidth()/2)){
-                        return;
+                    if(!(movingblock.ReturnPosition().x < (placedblocks[placedblocksint-1].ReturnPosition().x - placedblocks[placedblocksint-1].ReturnWidth()/2))){
+                        runaddblockcode = true;
                     }
-                    else{
-                        rundetectioncode = true;
-                    }
+                    
                     break;
-            
-            break;
             }
+
+            break;
+
         case Z:
             switch(movingblock.ReturnDirection()){
 
                 case POSITIVE:
-                    if(movingblock.ReturnPosition().z > (placedblocks[placedblocksint-1].ReturnPosition().z + placedblocks[placedblocksint-1].ReturnLength()/2)){
-                        return;
+                    if(!(movingblock.ReturnPosition().z > (placedblocks[placedblocksint-1].ReturnPosition().z + placedblocks[placedblocksint-1].ReturnLength()/2))){
+                        runaddblockcode = true;
                     }
-                    else{
-                        rundetectioncode = true;
-                    }
+
                     break;
 
                 case NEGATIVE:
-                    if(movingblock.ReturnPosition().z < (placedblocks[placedblocksint-1].ReturnPosition().z - placedblocks[placedblocksint-1].ReturnLength()/2)){
-                        return;
+                    if(!(movingblock.ReturnPosition().z < (placedblocks[placedblocksint-1].ReturnPosition().z - placedblocks[placedblocksint-1].ReturnLength()/2))){
+                        runaddblockcode = true;
                     }
-                    else{
-                        rundetectioncode = true;
-                    }
+
                     break;
-            
-            break;
+        
             }
+
+            break;
+
     }
 
-    if(rundetectioncode){
+    if(runaddblockcode == true){
 
         if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
             this->tempplacedblocks = new Block[this->placedblocksint];
