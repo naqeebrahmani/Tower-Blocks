@@ -28,38 +28,98 @@ void Game::DrawMovingBlock(float dt){
 }
 
 void Game::AddBlock(){
-    if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        this->tempplacedblocks = new Block[this->placedblocksint];
+    //this should only run when the moving block is on top of the last placed block and not when there is nothing under movingblock
 
-        for(int i = 0; i < (placedblocksint); i++){
-            tempplacedblocks[i] = placedblocks[i];
-        }
+    bool rundetectioncode = false;
 
-        delete[] placedblocks;
-        
-        placedblocksint ++;
+    switch(movingblock.ReturnAxis()){
+        case X:
+            switch(movingblock.ReturnDirection()){
 
-        placedblocks = new Block[this->placedblocksint];
+                case POSITIVE:
+                    if(movingblock.ReturnPosition().x > (placedblocks[placedblocksint-1].ReturnPosition().x + placedblocks[placedblocksint-1].ReturnWidth()/2)){
+                        return;
+                    }
+                    else{
+                        rundetectioncode = true;
+                    }
+                    break;
 
-        for(int i = 0; i < (placedblocksint - 1); i++){
-            placedblocks[i] = tempplacedblocks[i];
-        }
-        
-        delete[] tempplacedblocks;
- 
-        Block newblock{movingblock.ReturnPosition(),
-                placedblocks[placedblocksint-2].ReturnWidth(),
-                placedblocks[placedblocksint-2].ReturnLength(),
-                {movingblock.ReturnColour()}};
-        
-        placedblocks[placedblocksint - 1] = newblock;
+                case NEGATIVE:
+                    if(movingblock.ReturnPosition().x < (placedblocks[placedblocksint-1].ReturnPosition().x - placedblocks[placedblocksint-1].ReturnWidth()/2)){
+                        return;
+                    }
+                    else{
+                        rundetectioncode = true;
+                    }
+                    break;
+            
+            break;
+            }
+        case Z:
+            switch(movingblock.ReturnDirection()){
 
-        this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
-             placedblocks[placedblocksint-1].ReturnWidth(),
-             placedblocks[placedblocksint-1].ReturnLength(),
-             10, placedblocks[placedblocksint-1].ReturnColour()};
+                case POSITIVE:
+                    if(movingblock.ReturnPosition().z > (placedblocks[placedblocksint-1].ReturnPosition().z + placedblocks[placedblocksint-1].ReturnLength()/2)){
+                        return;
+                    }
+                    else{
+                        rundetectioncode = true;
+                    }
+                    break;
 
+                case NEGATIVE:
+                    if(movingblock.ReturnPosition().z < (placedblocks[placedblocksint-1].ReturnPosition().z - placedblocks[placedblocksint-1].ReturnLength()/2)){
+                        return;
+                    }
+                    else{
+                        rundetectioncode = true;
+                    }
+                    break;
+            
+            break;
+            }
     }
+
+    if(rundetectioncode){
+
+        if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+            this->tempplacedblocks = new Block[this->placedblocksint];
+
+            for(int i = 0; i < (placedblocksint); i++){
+                tempplacedblocks[i] = placedblocks[i];
+            }
+
+            delete[] placedblocks;
+            
+            placedblocksint ++;
+
+            placedblocks = new Block[this->placedblocksint];
+
+            for(int i = 0; i < (placedblocksint - 1); i++){
+                placedblocks[i] = tempplacedblocks[i];
+            }
+            
+            delete[] tempplacedblocks;
+
+            Block newblock{movingblock.ReturnPosition(),
+                    placedblocks[placedblocksint-2].ReturnWidth(),
+                    placedblocks[placedblocksint-2].ReturnLength(),
+                    {movingblock.ReturnColour()}};
+            
+            placedblocks[placedblocksint - 1] = newblock;
+
+            this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
+                placedblocks[placedblocksint-1].ReturnWidth(),
+                placedblocks[placedblocksint-1].ReturnLength(),
+                10, placedblocks[placedblocksint-1].ReturnColour()};
+
+
+
+        }  
+    
+    }
+
 }
 
 

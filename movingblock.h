@@ -37,5 +37,9 @@ class MovingBlock{
 
         Color ReturnColour();
 
+        int ReturnDirection();
+
+        int ReturnAxis();
+
 
 };

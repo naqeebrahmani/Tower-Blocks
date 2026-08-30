@@ -72,3 +72,11 @@ Vector3 MovingBlock::ReturnPosition(){
 Color MovingBlock::ReturnColour(){
     return this->colour;
 }
+
+int MovingBlock::ReturnDirection(){
+    return this->direction;
+}
+
+int MovingBlock::ReturnAxis(){
+    return this->axis;
+}
