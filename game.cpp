@@ -32,19 +32,31 @@ void Game::AddBlock(){
 
     bool runaddblockcode = false;
 
-    switch(movingblock.ReturnAxis()){
+    //mb = movingblock
+    int mbaxis = movingblock.ReturnAxis();
+    int mbdirection = movingblock.ReturnDirection();
+
+    Vector3 mbpos = movingblock.ReturnPosition();
+
+    Vector3 lastplacedblockpos = placedblocks[placedblocksint-1].ReturnPosition();
+
+    float lastplacedblockwidth = placedblocks[placedblocksint-1].ReturnWidth();
+
+    float lastplacedblocklength = placedblocks[placedblocksint-1].ReturnLength();
+
+    switch(mbaxis){
         case X:
-            switch(movingblock.ReturnDirection()){
+            switch(mbdirection){
 
                 case POSITIVE:
-                    if(!(movingblock.ReturnPosition().x > (placedblocks[placedblocksint-1].ReturnPosition().x + placedblocks[placedblocksint-1].ReturnWidth()/2))){
+                    if(!(mbpos.x > (lastplacedblockpos.x + lastplacedblockwidth/2))){
                         runaddblockcode = true;
                     }
 
                     break;
 
                 case NEGATIVE:
-                    if(!(movingblock.ReturnPosition().x < (placedblocks[placedblocksint-1].ReturnPosition().x - placedblocks[placedblocksint-1].ReturnWidth()/2))){
+                    if(!(mbpos.x < (placedblocks[placedblocksint-1].ReturnPosition().x - lastplacedblockwidth/2))){
                         runaddblockcode = true;
                     }
                     
@@ -54,17 +66,17 @@ void Game::AddBlock(){
             break;
 
         case Z:
-            switch(movingblock.ReturnDirection()){
+            switch(mbdirection){
 
                 case POSITIVE:
-                    if(!(movingblock.ReturnPosition().z > (placedblocks[placedblocksint-1].ReturnPosition().z + placedblocks[placedblocksint-1].ReturnLength()/2))){
+                    if(!(mbpos.z > (lastplacedblockpos.z + lastplacedblocklength/2))){
                         runaddblockcode = true;
                     }
 
                     break;
 
                 case NEGATIVE:
-                    if(!(movingblock.ReturnPosition().z < (placedblocks[placedblocksint-1].ReturnPosition().z - placedblocks[placedblocksint-1].ReturnLength()/2))){
+                    if(!(mbpos.z < (lastplacedblockpos .z - lastplacedblocklength/2))){
                         runaddblockcode = true;
                     }
 
