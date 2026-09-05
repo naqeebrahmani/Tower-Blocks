@@ -46,43 +46,30 @@ void Game::AddBlock(){
 
     switch(mbaxis){
         case X:
-            switch(mbdirection){
 
-                case POSITIVE:
-                    if(!(mbpos.x > (lastplacedblockpos.x + lastplacedblockwidth/2))){
-                        runaddblockcode = true;
-                    }
+            if( ( (mbpos.x + lastplacedblockwidth) < (lastplacedblockpos.x + (lastplacedblockwidth*2) ) )
+                && ( (mbpos.x - lastplacedblockwidth) > (lastplacedblockpos.x - (lastplacedblockwidth*2) ) ) ){
 
-                    break;
+                runaddblockcode = true;
 
-                case NEGATIVE:
-                    if(!(mbpos.x < (placedblocks[placedblocksint-1].ReturnPosition().x - lastplacedblockwidth/2))){
-                        runaddblockcode = true;
-                    }
-                    
-                    break;
-            }
+                }
+                
+            
 
             break;
 
         case Z:
-            switch(mbdirection){
 
-                case POSITIVE:
-                    if(!(mbpos.z > (lastplacedblockpos.z + lastplacedblocklength/2))){
-                        runaddblockcode = true;
-                    }
 
-                    break;
+            if( ( (mbpos.z + lastplacedblocklength) < (lastplacedblockpos.z + (lastplacedblocklength*2) ) )
+                && ( (mbpos.z - lastplacedblocklength) > (lastplacedblockpos.z - (lastplacedblocklength*2) ) ) ){
 
-                case NEGATIVE:
-                    if(!(mbpos.z < (lastplacedblockpos .z - lastplacedblocklength/2))){
-                        runaddblockcode = true;
-                    }
+                runaddblockcode = true;
+                
+                }
 
-                    break;
-        
-            }
+                
+    
 
             break;
 
