@@ -13,6 +13,8 @@ class Game{
 
     private:
 
+    bool gameover = false;
+
     Block *placedblocks;
 
     Block *tempplacedblocks;
@@ -35,6 +37,10 @@ class Game{
     void AddBlock();
 
     void AdjustCamera(float speedpersecond, float deltatime);
+
+    bool ReturnGameOver();
+
+
 
     
 

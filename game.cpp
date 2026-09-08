@@ -75,46 +75,53 @@ void Game::AddBlock(){
 
     }
 
-    if(runaddblockcode == true){
+    if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
 
-        if(IsKeyPressed(KEY_SPACE) || IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            this->tempplacedblocks = new Block[this->placedblocksint];
+        if(runaddblockcode == true){
 
-            for(int i = 0; i < (placedblocksint); i++){
-                tempplacedblocks[i] = placedblocks[i];
-            }
+                this->tempplacedblocks = new Block[this->placedblocksint];
 
-            delete[] placedblocks;
-            
-            placedblocksint ++;
+                for(int i = 0; i < (placedblocksint); i++){
+                    tempplacedblocks[i] = placedblocks[i];
+                }
 
-            placedblocks = new Block[this->placedblocksint];
+                delete[] placedblocks;
+                
+                placedblocksint ++;
 
-            for(int i = 0; i < (placedblocksint - 1); i++){
-                placedblocks[i] = tempplacedblocks[i];
-            }
-            
-            delete[] tempplacedblocks;
+                placedblocks = new Block[this->placedblocksint];
 
-            Block newblock{movingblock.ReturnPosition(),
-                    placedblocks[placedblocksint-2].ReturnWidth(),
-                    placedblocks[placedblocksint-2].ReturnLength(),
-                    {movingblock.ReturnColour()}};
-            
-            placedblocks[placedblocksint - 1] = newblock;
+                for(int i = 0; i < (placedblocksint - 1); i++){
+                    placedblocks[i] = tempplacedblocks[i];
+                }
+                
+                delete[] tempplacedblocks;
 
-            this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
-                placedblocks[placedblocksint-1].ReturnWidth(),
-                placedblocks[placedblocksint-1].ReturnLength(),
-                10, placedblocks[placedblocksint-1].ReturnColour()};
+                Block newblock{movingblock.ReturnPosition(),
+                        placedblocks[placedblocksint-2].ReturnWidth(),
+                        placedblocks[placedblocksint-2].ReturnLength(),
+                        {movingblock.ReturnColour()}};
+                
+                placedblocks[placedblocksint - 1] = newblock;
+
+                this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
+                    placedblocks[placedblocksint-1].ReturnWidth(),
+                    placedblocks[placedblocksint-1].ReturnLength(),
+                    10, placedblocks[placedblocksint-1].ReturnColour()};
 
 
 
-        }  
+            }  
+        else{
+            gameover = true;
+        }
+        
+        }
     
+
     }
 
-}
+
 
 
 void Game::AdjustCamera(float speedpersecond, float deltatime){
@@ -125,4 +132,8 @@ void Game::AdjustCamera(float speedpersecond, float deltatime){
         this->camera.target.y += speedpersecond*deltatime;
     }
 
+}
+
+bool Game::ReturnGameOver(){
+    return gameover;
 }
