@@ -97,10 +97,32 @@ void Game::AddBlock(){
                 
                 delete[] tempplacedblocks;
 
-                Block newblock{movingblock.ReturnPosition(),
+                //creating the newly placed block//
+                Block newblock{movingblock.ReturnPosition(), //will be replaced
                         placedblocks[placedblocksint-2].ReturnWidth(),
                         placedblocks[placedblocksint-2].ReturnLength(),
                         {movingblock.ReturnColour()}};
+                
+
+                Vector3 newlyplacedblockpos;
+                float newlyplacedblockwidth;
+                float newlyplacedblocklength;
+                Color newlyplacedblockcol = movigblock.ReturnColour();
+
+                switch (movingblock.ReturnAxis())
+                {
+                case X:
+                    
+                    break;
+                
+                case Z:
+                    
+                    break;
+                }
+
+
+
+                //////////////////////////////////
                 
                 placedblocks[placedblocksint - 1] = newblock;
 
