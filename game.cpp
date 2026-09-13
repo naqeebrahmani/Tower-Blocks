@@ -100,34 +100,151 @@ void Game::AddBlock(){
                 //creating the newly placed block//
                 
 
-                Vector3 newlyplacedblockpos = movingblock.ReturnPosition();
+                Vector3 newlyplacedblockpos = lastplacedblockpos;
+                newlyplacedblockpos.y += 2;
                 float newlyplacedblockwidth = placedblocks[placedblocksint-2].ReturnWidth();
                 float newlyplacedblocklength = placedblocks[placedblocksint-2].ReturnLength();
                 Color tempcol = placedblocks[placedblocksint-2].ReturnColour();
                 Color newlyplacedblockcol = Color{tempcol.r, tempcol.g, tempcol.b += 10, 255};
                 
 
+                //margin of error for perfect placement//
+                float errorMarginPlusMinus =  0.5f;
+                ////////////////////////////////////////
+
                 switch (movingblock.ReturnAxis())
                 {
-                case X:
+                case X:{
+                    
+                    //if the block is "perfectly" alligned
+                    if( (lastplacedblockpos.x - errorMarginPlusMinus < movingblock.ReturnPosition().x) && (movingblock.ReturnPosition().x < lastplacedblockpos.x + errorMarginPlusMinus) )
+                    {
+                    
+                        Block newblock{newlyplacedblockpos,
+                                newlyplacedblockwidth,
+                                newlyplacedblocklength,
+                                newlyplacedblockcol};
+                                
+                        placedblocks[placedblocksint - 1] = newblock;
+
+                    }
+                    ///////////////////////////////////////
+                    else if( (movingblock.ReturnPosition().x + (lastplacedblockwidth/2) ) < (lastplacedblockpos.x +  (lastplacedblockwidth/2) ) ){
+                        float lastPlacedBlockTopEdgeXPos = (lastplacedblockpos.x +  (lastplacedblockwidth/2) );
+
+                        float difference = lastPlacedBlockTopEdgeXPos - (movingblock.ReturnPosition().x + (lastplacedblockwidth/2) );
+
+                        newlyplacedblockwidth = lastplacedblockwidth - difference;
+
+                        newlyplacedblockpos.x = lastPlacedBlockTopEdgeXPos - difference - newlyplacedblockwidth/2;
+
+                        Block newblock{newlyplacedblockpos,
+                                newlyplacedblockwidth,
+                                newlyplacedblocklength,
+                                newlyplacedblockcol};
+                                
+                        placedblocks[placedblocksint - 1] = newblock;
+
+
+                    }
+                                //          movingblock's bottom edge X pos             //   //          lastplacedblock's bottom edge X pos       //
+                    else if( (movingblock.ReturnPosition().x - (lastplacedblockwidth/2) ) > (lastplacedblockpos.x -  (lastplacedblockwidth/2) ) ){
+                        float lastPlacedBlockBottomEdgeXPos = (lastplacedblockpos.x - (lastplacedblockwidth/2) );
+
+                        float difference = (movingblock.ReturnPosition().x - (lastplacedblockwidth/2)) - lastPlacedBlockBottomEdgeXPos;
+
+                        newlyplacedblockwidth = lastplacedblockwidth - difference;
+
+                        newlyplacedblockpos.x = lastPlacedBlockBottomEdgeXPos + difference + newlyplacedblockwidth/2;
+
+                        Block newblock{newlyplacedblockpos,
+                                newlyplacedblockwidth,
+                                newlyplacedblocklength,
+                                newlyplacedblockcol};
+                                
+                        placedblocks[placedblocksint - 1] = newblock;
+
+
+                    }
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     
                     break;
+
+                    }
                 
-                case Z:
+                case Z:{
+
+                    //if the block is "perfectly" alligned
+                    if((lastplacedblockpos.z - errorMarginPlusMinus < movingblock.ReturnPosition().z) && (movingblock.ReturnPosition().z < lastplacedblockpos.z + errorMarginPlusMinus))
+                    {
+                    
+                        Block newblock{newlyplacedblockpos,
+                                newlyplacedblockwidth,
+                                newlyplacedblocklength,
+                                newlyplacedblockcol};
+                                
+                        placedblocks[placedblocksint - 1] = newblock;
+
+                    }
+                    ///////////////////////////////////////
+                    else if( (movingblock.ReturnPosition().z + (lastplacedblocklength/2) ) < (lastplacedblockpos.z +  (lastplacedblocklength/2) ) ){
+                        float lastPlacedBlockTopEdgeZPos = (lastplacedblockpos.z +  (lastplacedblocklength/2) );
+
+                        float difference = lastPlacedBlockTopEdgeZPos - (movingblock.ReturnPosition().z + (lastplacedblocklength/2) );
+
+                        newlyplacedblocklength = lastplacedblocklength - difference;
+
+                        newlyplacedblockpos.z = lastPlacedBlockTopEdgeZPos - difference - newlyplacedblocklength/2;
+
+                        Block newblock{newlyplacedblockpos,
+                                newlyplacedblockwidth,
+                                newlyplacedblocklength,
+                                newlyplacedblockcol};
+                                
+                        placedblocks[placedblocksint - 1] = newblock;
+
+
+                    }
+                                //          movingblock's bottom edge Z pos             //   //          lastplacedblock's bottom edge Z pos       //
+                    else if( (movingblock.ReturnPosition().z - (lastplacedblocklength/2) ) > (lastplacedblockpos.z -  (lastplacedblocklength/2) ) ){
+                        float lastPlacedBlockBottomEdgeZPos = (lastplacedblockpos.z - (lastplacedblocklength/2) );
+
+                        float difference = (movingblock.ReturnPosition().z - (lastplacedblocklength/2)) - lastPlacedBlockBottomEdgeZPos;
+
+                        newlyplacedblocklength = lastplacedblocklength - difference;
+
+                        newlyplacedblockpos.z = lastPlacedBlockBottomEdgeZPos + difference + newlyplacedblocklength/2;
+
+                        Block newblock{newlyplacedblockpos,
+                                newlyplacedblockwidth,
+                                newlyplacedblocklength,
+                                newlyplacedblockcol};
+                                
+                        placedblocks[placedblocksint - 1] = newblock;
+
+
+                    }
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    
                     
                     break;
+                        
+                    }
+                    
                 }
 
-                Block newblock{newlyplacedblockpos,
+                /*Block newblock{newlyplacedblockpos,
                         newlyplacedblockwidth,
                         newlyplacedblocklength,
-                        newlyplacedblockcol};
+                        newlyplacedblockcol};*/
 
 
 
                 //////////////////////////////////
                 
-                placedblocks[placedblocksint - 1] = newblock;
+                //placedblocks[placedblocksint - 1] = newblock;
 
                 this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
                     placedblocks[placedblocksint-1].ReturnWidth(),
