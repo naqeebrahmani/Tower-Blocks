@@ -277,5 +277,9 @@ void Game::AdjustCamera(float speedpersecond, float deltatime){
 }
 
 bool Game::ReturnGameOver(){
-    return gameover;
+    return this->gameover;
+}
+
+int Game::ReturnScore(){
+    return this->score;
 }
