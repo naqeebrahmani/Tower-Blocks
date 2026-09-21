@@ -79,6 +79,8 @@ void Game::AddBlock(){
 
         if(runaddblockcode == true){
 
+                this->score ++;
+
                 this->tempplacedblocks = new Block[this->placedblocksint];
 
                 for(int i = 0; i < (placedblocksint); i++){

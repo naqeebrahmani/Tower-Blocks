@@ -16,44 +16,64 @@ int main(){
     Game game;
 
     while(!WindowShouldClose()){
+        
+        if (!game.ReturnGameOver()){
+            while(!game.ReturnGameOver()){
 
-        float deltatime = GetFrameTime();
+                float deltatime = GetFrameTime();
 
-        //adjusting camera//
+                //adjusting camera//
 
-        game.AdjustCamera(10.0, deltatime);
+                game.AdjustCamera(10.0, deltatime);
 
-        ///////////////////
+                ///////////////////
 
-        BeginDrawing();
-        BeginMode3D(game.camera);
+                BeginDrawing();
+                BeginMode3D(game.camera);
 
-        ClearBackground(WHITE);
+                ClearBackground(WHITE);
 
-        game.DrawPlacedBlocks();
-        game.DrawMovingBlock(deltatime);
+                game.DrawPlacedBlocks();
+                game.DrawMovingBlock(deltatime);
 
-        /////////////////////
-        DrawText(TextFormat("%08i", game.ReturnGameOver()), 100, 100, 20, Color {0, 0, 0, 255});
-        DrawText(TextFormat("%08i", game.ReturnGameOver() ? 1 : 0), 100, 100, 100, BLACK);
+                /////////////////////
+                DrawText(TextFormat("%08i", game.ReturnGameOver()), 100, 100, 20, Color {0, 0, 0, 255});
+                DrawText(TextFormat("%08i", game.ReturnGameOver() ? 1 : 0), 100, 100, 100, BLACK);
 
-        /////////////////////////////////
-    
+                /////////////////////////////////
+            
 
-        EndMode3D();
+                EndMode3D();
 
-        DrawText(TextFormat(" Game Over (True - 1/False - 0): %01i", game.ReturnGameOver()), 100, 50, 30, Color {0, 0, 0, 255});
-        DrawText(TextFormat("Score: %i", game.ReturnScore()), 100, 100, 20, BLACK);
+                //DrawText(TextFormat(" Game Over: %01i", game.ReturnGameOver()), 100, 50, 30, Color {0, 0, 0, 255});
+                DrawText(TextFormat("Score: %i", game.ReturnScore()), 100, 100, 20, BLACK);
 
-        EndDrawing();
-
-
-        //key detection stuff is below
+                EndDrawing();
 
 
-        game.AddBlock();
+                //key detection stuff is below
 
-        //////////////////////////////
+
+                game.AddBlock();
+
+                //////////////////////////////
+            }
+        }
+        else{
+
+            BeginDrawing();
+            BeginMode3D(game.camera);
+
+            ClearBackground(WHITE);
+
+            game.DrawPlacedBlocks();
+
+            EndMode3D();
+            EndDrawing();
+
+
+
+        }
 
 
     }
