@@ -35,18 +35,13 @@ int main(){
 
                 game.DrawPlacedBlocks();
                 game.DrawMovingBlock(deltatime);
-
-                /////////////////////
-                DrawText(TextFormat("%08i", game.ReturnGameOver()), 100, 100, 20, Color {0, 0, 0, 255});
-                DrawText(TextFormat("%08i", game.ReturnGameOver() ? 1 : 0), 100, 100, 100, BLACK);
-
-                /////////////////////////////////
             
 
                 EndMode3D();
 
                 //DrawText(TextFormat(" Game Over: %01i", game.ReturnGameOver()), 100, 50, 30, Color {0, 0, 0, 255});
-                DrawText(TextFormat("Score: %i", game.ReturnScore()), 100, 100, 20, BLACK);
+                DrawText("Score:", 250, 100, 30, BLACK);
+                DrawText(TextFormat("%i", game.ReturnScore()), 285, 130, 30, GRAY);
 
                 EndDrawing();
 
@@ -69,6 +64,12 @@ int main(){
             game.DrawPlacedBlocks();
 
             EndMode3D();
+
+            //dRAWING the score//
+            DrawText("Score:", 250, 100, 30, BLACK);
+            DrawText(TextFormat("%i", game.ReturnScore()), 285, 130, 30, GRAY);
+            /////////////////////
+
             EndDrawing();
 
 
