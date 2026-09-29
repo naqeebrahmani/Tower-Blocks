@@ -7,7 +7,6 @@
 
 
 
-
 const int WIDTH = 600; const int HEIGHT = 1000;
 
 
@@ -18,41 +17,40 @@ int main(){
     while(!WindowShouldClose()){
         
         if (!game.ReturnGameOver()){
-            while(!game.ReturnGameOver()){
 
-                float deltatime = GetFrameTime();
+            float deltatime = GetFrameTime();
 
-                //adjusting camera//
+            //adjusting camera//
 
-                game.AdjustCamera(10.0, deltatime);
+            game.AdjustCamera(10.0, deltatime);
 
-                ///////////////////
+            ///////////////////
 
-                BeginDrawing();
-                BeginMode3D(game.camera);
+            BeginDrawing();
+            BeginMode3D(game.camera);
 
-                ClearBackground(WHITE);
+            ClearBackground(WHITE);
 
-                game.DrawPlacedBlocks();
-                game.DrawMovingBlock(deltatime);
+            game.DrawPlacedBlocks();
+            game.DrawMovingBlock(deltatime);
+        
+
+            EndMode3D();
+
+            //DrawText(TextFormat(" Game Over: %01i", game.ReturnGameOver()), 100, 50, 30, Color {0, 0, 0, 255});
+            DrawText("Score:", 250, 100, 30, BLACK);
+            DrawText(TextFormat("%i", game.ReturnScore()), 285, 130, 30, GRAY);
+
+            EndDrawing();
+
+
+            //key detection stuff is below
+
+
+            game.AddBlock();
+
+            //////////////////////////////
             
-
-                EndMode3D();
-
-                //DrawText(TextFormat(" Game Over: %01i", game.ReturnGameOver()), 100, 50, 30, Color {0, 0, 0, 255});
-                DrawText("Score:", 250, 100, 30, BLACK);
-                DrawText(TextFormat("%i", game.ReturnScore()), 285, 130, 30, GRAY);
-
-                EndDrawing();
-
-
-                //key detection stuff is below
-
-
-                game.AddBlock();
-
-                //////////////////////////////
-            }
         }
         else{
 
