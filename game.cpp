@@ -248,10 +248,13 @@ void Game::AddBlock(){
                 
                 //placedblocks[placedblocksint - 1] = newblock;
 
+
+                float movingblockspeed = (this->placedblocksint-1)*1.2 + 10;
+
                 this->movingblock = MovingBlock{{placedblocks[placedblocksint-1].ReturnPosition().x, placedblocks[placedblocksint-1].ReturnPosition().y + 2, placedblocks[placedblocksint-1].ReturnPosition().z},
                     placedblocks[placedblocksint-1].ReturnWidth(),
                     placedblocks[placedblocksint-1].ReturnLength(),
-                    10, placedblocks[placedblocksint-1].ReturnColour()};
+                    movingblockspeed, placedblocks[placedblocksint-1].ReturnColour()};
 
 
 
