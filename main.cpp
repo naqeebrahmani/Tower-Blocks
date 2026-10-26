@@ -70,7 +70,7 @@ int main(){
             /////////////////////
 
             //Restart text//
-            float textwidth = MeasureText("Press Enter to retry...", 25); //284
+            //float textwidth = MeasureText("Press Enter to retry...", 25); this gave me 284, so the width is 284 pixels
             
             DrawText("Press Enter to retry...", (600-284)/2, 670, 25, BLACK);
 
