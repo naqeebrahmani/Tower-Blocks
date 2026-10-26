@@ -2,8 +2,6 @@
 #include "game.h"
 #include "movingblock.h"
 
-#include <iostream>
-
 
 
 Game::Game(){
@@ -283,6 +281,10 @@ void Game::AdjustCamera(float speedpersecond, float deltatime){
 
 bool Game::ReturnGameOver(){
     return this->gameover;
+}
+
+void Game::SetGameOver(bool option){
+    this->gameover = option;
 }
 
 int Game::ReturnScore(){

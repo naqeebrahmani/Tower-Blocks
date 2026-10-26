@@ -42,6 +42,8 @@ class Game{
 
     bool ReturnGameOver();
 
+    void SetGameOver(bool option);
+
     int ReturnScore();
 
 

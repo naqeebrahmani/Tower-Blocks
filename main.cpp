@@ -1,22 +1,20 @@
+#include <cstdlib>
 #include <raylib.h>
 #include "game.h"
-#include "block.h"
-#include "movingblock.h"
-
-#include <iostream>
-
 
 
 const int WIDTH = 600; const int HEIGHT = 1000;
 
 
 int main(){
+
     InitWindow(WIDTH, HEIGHT, "game");
-    Game game;
 
     while(!WindowShouldClose()){
+
+        Game game;
         
-        if (!game.ReturnGameOver()){
+        while (!game.ReturnGameOver()){
 
             float deltatime = GetFrameTime();
 
@@ -46,13 +44,16 @@ int main(){
 
             //key detection stuff is below
 
-
             game.AddBlock();
+
+            if(WindowShouldClose()){
+                exit(0);
+            }
 
             //////////////////////////////
             
         }
-        else{
+        while(game.ReturnGameOver()){
 
             BeginDrawing();
             BeginMode3D(game.camera);
@@ -63,14 +64,27 @@ int main(){
 
             EndMode3D();
 
-            //dRAWING the score//
+            //Drawing the score//
             DrawText("Score:", 250, 100, 30, BLACK);
             DrawText(TextFormat("%i", game.ReturnScore()), 285, 130, 30, GRAY);
             /////////////////////
 
+            //Restart text//
+            float textwidth = MeasureText("Press Enter to retry...", 25); //284
+            
+            DrawText("Press Enter to retry...", (600-284)/2, 670, 25, BLACK);
+
+            ///////////////
+
             EndDrawing();
 
+            if(IsKeyPressed(KEY_ENTER)){
+                game.SetGameOver(false);
+            }
 
+            if(WindowShouldClose()){
+                exit(0);
+            }
 
         }
 
