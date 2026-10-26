@@ -1,2 +1,3 @@
 cmake --build build
-build\game.exe
+move "build\game.exe" "."
+game.exe
